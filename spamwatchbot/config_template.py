@@ -7,3 +7,5 @@ db_password = ''
 db_port = ''
 # Bot Settings
 bottoken = ''
+# Misc Settings
+channel_id = ''
