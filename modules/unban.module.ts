@@ -1,14 +1,9 @@
 import { bot } from '../bot.ts'
 import { SpamWatch } from '../config/spamwatch.ts'
-import { ADMIN_CHAT_ID } from "../constants.ts";
+import { ADMIN_CHAT_ID, SUPER_ADMIN_IDS } from "../constants.ts";
 import { dedent } from "../deps.ts";
 
 bot.command('unban', async (ctx) => {
-    if (!ADMIN_CHAT_ID) {
-        console.warn('No ADMIN_CHAT_ID set. Unban requests are disabled.')
-        return
-    }
-    
     const text = ctx.match.trim()
     const user = ctx.msg.from
     if (user) {
@@ -37,6 +32,24 @@ bot.command('unban', async (ctx) => {
             }
         } else {
             await ctx.reply(ctx.i18n.t('unban_request_requires_content'))
+        }
+    }
+})
+
+bot.command(['deny', 'approve'], async (ctx) => {
+    if (ctx.chat.id === ADMIN_CHAT_ID) {
+        if (ctx.msg.from?.id === ctx.me.id) {
+            const forwardFrom = ctx.msg.forward_from_chat
+            if (forwardFrom) {
+                const user = ctx.from
+                if (user &&  SUPER_ADMIN_IDS.includes(user.id)) {
+                    // Only Simon gets passed this point
+                    const parts = ctx.msg.text.split(/\s+/, 2)
+                    const command = parts[0].slice(1)
+                    const text = parts[1].trim()
+                    await bot.api.sendMessage(forwardFrom.id, ctx.i18n.t('unban_decision', { decision: command, reason: text }))
+                }
+            }
         }
     }
 })

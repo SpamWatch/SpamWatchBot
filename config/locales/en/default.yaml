@@ -44,6 +44,9 @@ unban_request_denied: |
   Your unban request has been denied.
   Reason: `{{reason}}` is an unpardonable offense.
 unban_request_requires_content: Please tell us why you should be unbanned. Unban requests with little to no content won't be considered.
+unban_decision: |
+    Your unban request has been {{decision}}
+    Reason: {{reason}}
 
 token_revoked: Your API token has been revoked.
 no_token_to_revoke: You don't have an API token to revoke.
