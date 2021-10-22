@@ -1,0 +1,63 @@
+start_message: |
+  Welcome to *SpamWatch Help*!
+
+  Here you can check your SpamWatch ban status, report spam to SpamWatch admins, and get some generalized help involving SpamWatch.
+
+  For usage information, see /help.
+
+help_message: |
+  Thanks for using *SpamWatch Help*!
+  Here are the available commands and how to use them:
+  
+  *Help and Reporting*
+  `/faq   ` - Display a list of frequently asked questions.
+  `/report` - Report content that can't be forwarded.
+  `/help  ` - Display this help text.
+
+  *User Info*
+  `/me   ` - Show your ban status in SpamWatch.
+  `/unban` - Request an unban. Please include your reason.
+  `/token` - Retrieve your SpamWatch API token.
+  `/token revoke` - Revoke your SpamWatch API token.
+
+
+faq_message: |
+    *Frequently Asked Questions*
+
+    {{- faq}}
+
+not_banned: You're not banned in SpamWatch
+banned_message: |
+  *You're currently banned in SpamWatch.*
+
+  *Reason:* {{- reason}}
+  *Date:* {{- date, dateTime}}
+
+  For an explaination of the ban reason, see /faq\_why\_banned.
+
+cant_forward: Sorry, this message couldn't be forwarded. The user might have forward privacy turned on.
+nothing_to_report: There's nothing there to report.
+
+unknown_command: Unknown command `{{- command}}`
+unban_request_submitted: Unban request submitted. You will receive a notification here when a decision is made.
+unban_request_denied: |
+  Your unban request has been denied.
+  Reason: `{{reason}}` is an unpardonable offense.
+unban_request_requires_content: Please tell us why you should be unbanned. Unban requests with little to no content won't be considered.
+
+token_revoked: Your API token has been revoked.
+no_token_to_revoke: You don't have an API token to revoke.
+user_token: |
+    Use this token to access the the SpamWatch API:
+    `{{token.token}}`
+    *Do not* give this token to *anyone else*!
+
+set_report_type: |
+  What type of incident do you want to report?
+  Use /stop at any point to cancel.
+invalid_report_type: I don't know what that means. Please send one of `spam`, `scam`, or `child abuse`.
+report_entity: Please give a username (starting with `@`), invite link, or message link to the entity you're reporting.
+invaid_report_entity: Invalid format. I need a username (starting with `@`), invite link, or message link. Links should start with `https://t.me`.
+report_content: Please describe your reason for reporting.
+thanks_for_report: Thank's for your report! You can view your report in @SpamWatchReports.
+reporting_stopped: Your report has been canceled.

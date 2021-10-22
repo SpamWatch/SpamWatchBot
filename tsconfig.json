@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "module": "esnext",
+    "strict": true,
+    "removeComments": true,
+    "target": "esnext",
+    "plugins": [
+      {
+        "name": "typescript-deno-plugin"
+      }
+    ]
+  }
+}
