@@ -23,6 +23,6 @@ export type { SceneContext } from 'https://raw.githubusercontent.com/KnightNiwre
 export * as redis from 'https://deno.land/x/redis@v0.25.0/mod.ts'
 
 // export * as spamwatch from 'https://raw.githubusercontent.com/watzon/spamwatch-js-fetch/main/src/index.ts'
-export * as spamwatch from '../../clones/spamwatch-js-fetch/src/index.ts'
+export * as spamwatch from 'https://github.com/watzon/spamwatch-js-fetch/blob/504ca08ae1f9cd3bfdbc79a941316d85b9e01221/src/index.ts'
 
 export { default as dedent } from 'https://raw.githubusercontent.com/tamino-martinius/node-ts-dedent/43e5c24511e0ea04870889c9f4d8590fad0da28d/src/index.ts'
