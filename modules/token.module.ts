@@ -1,9 +1,10 @@
 import { bot } from '../bot.ts'
 import { SpamWatch } from '../config/spamwatch.ts'
+import { BotContext } from "../constants.ts";
 
-bot.command('token', async (ctx) => {
-    const text = ctx.msg.text.trim().toLowerCase().split(/\s+/, 2)[1]
-    const userId = ctx.msg.from?.id
+export const tokenRequest = async (ctx: BotContext) => {
+    const text = ctx.match
+    const userId = ctx.msg?.from?.id
     if (!userId) return
 
     if (text && text.length > 0) {
@@ -29,4 +30,9 @@ bot.command('token', async (ctx) => {
             await ctx.reply(ctx.i18n.t('user_token', { token }))
         }
     }
+}
+
+bot.command('token', async (ctx) => {
+    await tokenRequest(ctx)
 })
+
