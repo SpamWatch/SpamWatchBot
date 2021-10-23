@@ -7,9 +7,9 @@ export { default as makeloc } from 'https://deno.land/x/dirname@1.1.2/mod.ts'
 export { default as i18next } from 'https://deno.land/x/i18next@v21.3.1/index.js'
 export { default as FSBackend } from 'https://deno.land/x/i18next_fs_backend@v1.1.1/index.js'
 
-export { Bot, Context, GrammyError, HttpError, BotError, Keyboard, InlineKeyboard, session } from 'https://deno.land/x/grammy@v1.3.3/mod.ts'
-export type { ReplyKeyboardRemove } from "https://deno.land/x/grammy@v1.3.3/platform.ts";
-export type { SessionFlavor } from 'https://deno.land/x/grammy@v1.3.3/mod.ts'
+export { Bot, Context, GrammyError, HttpError, BotError, Keyboard, InlineKeyboard, session } from 'https://deno.land/x/grammy@v1.3.4/mod.ts'
+export type { ReplyKeyboardRemove } from "https://deno.land/x/grammy@v1.3.4/platform.deno.ts";
+export type { SessionFlavor } from 'https://deno.land/x/grammy@v1.3.4/mod.ts'
 
 export { hydrate } from 'https://deno.land/x/grammy_hydrate@v1.0.3/mod.ts'
 export type { HydrateFlavor } from 'https://deno.land/x/grammy_hydrate@v1.0.3/mod.ts'
