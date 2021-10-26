@@ -78,9 +78,11 @@ bot.command('report', async (ctx) => {
 })
 
 bot.on('msg:forward_date', async (ctx) => {
-    if (ctx.msg.forward_from) {
-        await ctx.msg.forward(REPORT_CHAT_ID)
-    } else {
-        await ctx.reply(ctx.i18n.t('cant_forward'))
+    if (ctx.chat.type === 'private') {
+        if (ctx.msg.forward_from) {
+            await ctx.msg.forward(REPORT_CHAT_ID)
+        } else {
+            await ctx.reply(ctx.i18n.t('cant_forward'))
+        }
     }
 })
