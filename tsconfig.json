@@ -1,17 +1,25 @@
 {
   "compilerOptions": {
-    "allowJs": false,
+    "allowJs": true,
     "checkJs": false,
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "module": "esnext",
-    "strict": true,
-    "removeComments": true,
-    "target": "esnext",
-    "plugins": [
-      {
-        "name": "typescript-deno-plugin"
-      }
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": false,
+    "removeComments": false,
+    "target": "es2016",
+    "lib": [ "es2021" ],
+    "outDir": "dist",
+    "sourceRoot": "src",
+    "sourceMap": true,
+    "typeRoots": [
+      "node_modules/@types"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
 }

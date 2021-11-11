@@ -1,6 +1,7 @@
-import { bot } from '../bot.ts'
-import { SpamWatch } from '../config/spamwatch.ts'
-import { BotContext } from "../constants.ts";
+import winston from 'winston'
+import { bot } from '../bot'
+import { SpamWatch } from '../config/spamwatch'
+import { BotContext } from "../constants";
 
 export const tokenRequest = async (ctx: BotContext) => {
     const text = ctx.match
@@ -9,6 +10,7 @@ export const tokenRequest = async (ctx: BotContext) => {
 
     if (text && text.length > 0) {
         if (text === 'revoke') {
+            winston.info(`token revoke request`, { user: ctx.from })
             const tokens = await SpamWatch.getTokenUser(userId)
             if (tokens && tokens.length > 0) {
                 const token = tokens[tokens.length - 1]
@@ -22,6 +24,7 @@ export const tokenRequest = async (ctx: BotContext) => {
         }
     } else {
         const tokens = await SpamWatch.getTokenUser(userId)
+        winston.info(`new token request`, { user: ctx.from })
         if (tokens && tokens.length > 0) {
             const token = tokens[tokens.length - 1]
             await ctx.reply(ctx.i18n.t('user_token', { token }))

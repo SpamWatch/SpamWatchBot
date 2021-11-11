@@ -1,6 +1,9 @@
-import { bot } from '../bot.ts'
-import { BotContext, REPORT_CHAT_ID } from '../constants.ts'
-import { createScene, Keyboard, ReplyKeyboardRemove } from '../deps.ts'
+import winston from 'winston'
+import { ReplyKeyboardRemove } from '@grammyjs/types'
+import { createScene } from 'basic-scene'
+import { Keyboard } from 'grammy'
+import { bot } from '../bot'
+import { BotContext, REPORT_CHAT_ID } from '../constants'
 
 const RemoveKeyboard: ReplyKeyboardRemove = { remove_keyboard: true }
 
@@ -22,6 +25,7 @@ const clearSession = (ctx: BotContext) => {
 }
 
 const stopReporting = async (ctx: BotContext) => {
+    winston.info(`report early termination`, { user: ctx.from })
     await ctx.reply(ctx.i18n.t('reporting_stopped'), { reply_markup: RemoveKeyboard })
     clearSession(ctx)
     await ctx.scene.exit()
@@ -63,6 +67,7 @@ reportContentBuilder.command('stop', stopReporting)
 reportContentBuilder.on(':text', async (ctx) => {
     const text = ctx.msg.text.trim()
     ctx.session.reportContent = text
+    winston.info(`new report`, { user: ctx.from, report: ctx.session })
     const message = `*New Report*\nType: ${ctx.session.reportType}\nEntity: ${ctx.session.reportEntity}\nDescription: ${ctx.session.reportContent}`
     await bot.api.sendMessage(REPORT_CHAT_ID, message)
     await ctx.reply(ctx.i18n.t('thanks_for_report'))
@@ -74,11 +79,13 @@ bot.use(reportEntityMiddleware)
 bot.use(reportContentMiddleware)
 
 bot.command('report', async (ctx) => {
+    winston.info(`start report`, { user: ctx.from })
     await ctx.scene.enter(Scenes.SetReportType)
 })
 
 bot.on('msg:forward_date', async (ctx) => {
-    if (ctx.chat.type === 'private') {
+    if (ctx.chat.type === 'private' && ctx.chat.username) {
+        winston.info(`forwarded report`, { user: ctx.from, forwardFrom: ctx.msg.forward_from })
         if (ctx.msg.forward_from) {
             await ctx.msg.forward(REPORT_CHAT_ID)
         } else {

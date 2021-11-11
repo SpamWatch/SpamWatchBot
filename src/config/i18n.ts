@@ -1,5 +1,6 @@
-import { i18next, FSBackend, makeloc, path, YAML } from '../deps.ts'
-const { __dirname,  __filename } = makeloc(import.meta)
+import path from "path"
+import i18next from "i18next"
+import FSBackend from 'i18next-fs-backend'
 
 i18next
     .use(FSBackend)
@@ -9,10 +10,10 @@ i18next
         lng: 'en',
         ns: ['default', 'faq'],
         defaultNS: 'default',
-        parse: (data: string) => {
-            console.log(data)
-            return YAML.parse(data)
-        },
+        // parse: (data: string) => {
+        //     console.log(data)
+        //     return YAML.parse(data)
+        // },
         backend: {
             loadPath: path.join(__dirname, './locales/{{lng}}/{{ns}}.yaml')
         },

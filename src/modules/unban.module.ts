@@ -1,13 +1,15 @@
-import { bot } from '../bot.ts'
-import { SpamWatch } from '../config/spamwatch.ts'
-import { ADMIN_CHAT_ID, SUPER_ADMIN_IDS } from "../constants.ts";
-import { dedent } from "../deps.ts";
+import winston from 'winston'
+import { bot } from '../bot'
+import { SpamWatch } from '../config/spamwatch'
+import { ADMIN_CHAT_ID, SUPER_ADMIN_IDS } from "../constants";
+import dedent from 'dedent'
 
 bot.command('unban', async (ctx) => {
     const text = ctx.match.trim()
     const user = ctx.msg.from
     if (user) {
         if (text.length > 0) {
+            winston.info(`new unban request`, { user: ctx.from })
             const ban = await SpamWatch.getBan(user.id)
             if (ban) {
                 const reason = ban.reason

@@ -1,0 +1,50 @@
+{
+  "name": "spamwatchbot",
+  "private": true,
+  "version": "0.2.0",
+  "description": "Reporting and information bot for [SpamWatch](https://t.me/SpamWatch). See me in action at https://t.me/SpamWatchHelpBot.",
+  "main": "dist/main.js",
+  "dependencies": {
+    "@grammyjs/hydrate": "^1.0.3",
+    "@grammyjs/parse-mode": "^0.1.3",
+    "basic-scene": "^0.2.0",
+    "dedent": "^0.7.0",
+    "grammy": "^1.4.0",
+    "i18next": "^21.4.2",
+    "i18next-fs-backend": "^1.1.1",
+    "redis": "^3.1.2",
+    "spamwatch-ts": "^1.0.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4",
+    "typescript-deno-plugin": "^1.31.0",
+    "winston": "^3.3.3",
+    "winston-loggly-bulk": "^3.2.1",
+    "yaml": "^1.10.2"
+  },
+  "scripts": {
+    "build": "tsc; cp -r src/config/locales dist/config",
+    "start": "ts-node-dev --trace-warnings --project tsconfig.json src/main.ts",
+    "start:prod": "node dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpamWatch/SpamWatchBot.git"
+  },
+  "author": "Chris Watson <cawatson1993@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SpamWatch/SpamWatchBot/issues"
+  },
+  "homepage": "https://github.com/SpamWatch/SpamWatchBot#readme",
+  "devDependencies": {
+    "@grammyjs/types": "^2.3.1",
+    "@types/debug": "^4.1.7",
+    "@types/dedent": "^0.7.0",
+    "@types/i18next-fs-backend": "^1.1.2",
+    "@types/node": "^16.11.7",
+    "@types/node-fetch": "^3.0.3",
+    "@types/winston-loggly-bulk": "^3.0.1",
+    "dotenv": "^10.0.0"
+  }
+}

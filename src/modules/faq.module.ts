@@ -1,5 +1,6 @@
-import { bot } from '../bot.ts'
-import { i18next } from '../deps.ts'
+import winston from 'winston'
+import i18next from 'i18next'
+import { bot } from '../bot'
 
 const questionKeys = Object.keys(i18next.store!.data['en']['faq'])
     .filter((k) => !k.match(/^(answer|file)/))
@@ -20,10 +21,14 @@ const commands = answerKeys.map((k) => k.replace('answer_', 'faq_'))
 
 bot.command(commands, async (ctx) => {
     const key = ctx.msg.text.split(' ')[0].replace('/faq_', '')
-    if (ctx.i18n.translator?.exists(`faq:answer_${key}`)) {
+    winston.info(`faq item request`, {
+        item: key,
+        user: ctx.from,
+    })
+    if (ctx.i18n.exists(`faq:answer_${key}`)) {
         const title = ctx.i18n.t(`faq:${key}`)
         const answer = ctx.i18n.t(`faq:answer_${key}`)
-        const file = ctx.i18n.translator?.exists(`faq:file_${key}`) ? ctx.i18n.t(`faq:file_${key}`).trim() : undefined
+        const file = ctx.i18n.exists(`faq:file_${key}`) ? ctx.i18n.t(`faq:file_${key}`).trim() : undefined
         const message = `*${title}*\n\n${answer}`
         
         if (file) {
