@@ -7,7 +7,7 @@ winston.add(new winston.transports.Console({}))
 
 const dsn = process.env.SENTRY_DSN
 if (dsn) {
-    winston.add(new Sentry({
+    const sentryTransport = new Sentry({
         sentry: {
             dsn,
             tracesSampleRate: 1.0,
@@ -15,5 +15,6 @@ if (dsn) {
             release: pkg.version,
         },
         level: 'info',
-    }))
+    })
+    winston.add(sentryTransport)
 }

@@ -10,6 +10,10 @@ import { MODULES_DIR } from './constants'
 import './config/i18n'
 import './config/logging'
 
+process.on('unhandledRejection', (reason: Error | any, _promise: Promise<any>) => {
+    winston.error(reason)
+});
+
 (async () => {
     const modules = await fs.readdir(MODULES_DIR)
     for (const file of modules) {
