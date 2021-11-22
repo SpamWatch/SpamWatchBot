@@ -9,6 +9,7 @@
     "moduleResolution": "node",
     "strict": false,
     "removeComments": false,
+    "resolveJsonModule": true,
     "target": "es2016",
     "lib": [ "es2021" ],
     "outDir": "dist",

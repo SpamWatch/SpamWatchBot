@@ -1,17 +1,19 @@
+import pkg from '../../package.json'
 import winston from 'winston'
-import { Loggly } from 'winston-loggly-bulk'
+import { default as Sentry } from 'winston-transport-sentry-node'
 
 winston.level = 'debug'
 winston.add(new winston.transports.Console({}))
 
-const logglyToken = process.env.LOGGLY_TOKEN
-const logglySubdomain = process.env.LOGGLY_SUBDOMAIN
-const logglyTags = process.env.LOGGLY_TAGS?.split(/,\s*/)
-if (logglyToken && logglySubdomain) {
-    winston.add(new Loggly({
-        token: logglyToken,
-        subdomain: logglySubdomain,
-        tags: logglyTags || ['SpamWatchBot'],
-        json: true,
+const dsn = process.env.SENTRY_DSN
+if (dsn) {
+    winston.add(new Sentry({
+        sentry: {
+            dsn,
+            tracesSampleRate: 1.0,
+            environment: process.env.NODE_ENV,
+            release: pkg.version,
+        },
+        level: 'info',
     }))
 }
