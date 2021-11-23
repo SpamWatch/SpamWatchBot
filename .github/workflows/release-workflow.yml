@@ -19,3 +19,4 @@ jobs:
           SENTRY_PROJECT: spamwatchbot
         with:
           environment: production
+          set_commits: skip
