@@ -1,4 +1,3 @@
-import pkg from '../../package.json'
 import winston from 'winston'
 import { default as Sentry } from 'winston-transport-sentry-node'
 
@@ -12,7 +11,6 @@ if (dsn) {
             dsn,
             tracesSampleRate: 1.0,
             environment: process.env.NODE_ENV,
-            release: pkg.version,
         },
         level: 'info',
     })

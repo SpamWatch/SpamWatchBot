@@ -13,7 +13,7 @@
     "target": "es2016",
     "lib": [ "es2021" ],
     "outDir": "dist",
-    "sourceRoot": "src",
+    "rootDir": "src",
     "sourceMap": true,
     "typeRoots": [
       "node_modules/@types"
