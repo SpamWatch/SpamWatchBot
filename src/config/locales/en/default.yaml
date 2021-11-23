@@ -58,6 +58,10 @@ user_token: |
 set_report_type: |
   What type of incident do you want to report?
   Use /stop at any point to cancel.
+forward_spam_messages: Please forward {{ type }} here directly, no need to use `/report`.
+possible_private_chat: >
+  It looks like this might be a link to a message in a private chat. Unfortunately such links are useless for reporting.
+  Please /stop this report and forward the message here instead.
 invalid_report_type: I don't know what that means. Please send one of `spam`, `scam`, or `child abuse`.
 report_entity: Please give a username (starting with `@`), invite link, or message link to the entity you're reporting.
 invaid_report_entity: Invalid format. I need a username (starting with `@`), invite link, or message link. Links should start with `https://t.me`.

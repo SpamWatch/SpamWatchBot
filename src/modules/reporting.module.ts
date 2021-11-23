@@ -16,6 +16,7 @@ enum Scenes {
 const reportTypeKeyboard = new Keyboard()
     .text('Spam').row()
     .text('Scam').row()
+    .text('Mass Adding').row()
     .text('Child Abuse')
 
 const clearSession = (ctx: BotContext) => {
@@ -24,22 +25,28 @@ const clearSession = (ctx: BotContext) => {
     ctx.session.reportEntity = undefined
 }
 
-const stopReporting = async (ctx: BotContext) => {
-    winston.info(`report early termination`, { user: ctx.from })
-    await ctx.reply(ctx.i18n.t('reporting_stopped'), { reply_markup: RemoveKeyboard })
+const stopReporting = async (ctx: BotContext, early = false) => {
+    if (early) {
+        winston.info(`report terminated early`, { user: ctx.from })
+        await ctx.reply(ctx.i18n.t('reporting_stopped'), { reply_markup: RemoveKeyboard })
+    }
     clearSession(ctx)
     await ctx.scene.exit()
 }
 
 const { sceneMiddleware: reportTypeMiddleware, sceneBuilder: reportTypeBuilder } =
     createScene<BotContext>(Scenes.SetReportType, async (ctx) => await ctx.reply(ctx.i18n.t('set_report_type'), { reply_markup: reportTypeKeyboard }))
-reportTypeBuilder.command('stop', stopReporting)
+reportTypeBuilder.command('stop', (ctx) => stopReporting(ctx, true))
 reportTypeBuilder.on(':text', async (ctx) => {
     const text = ctx.msg.text.trim().toLowerCase()
     switch (text) {
         case 'spam':
         case 'scam':
-        case 'child_abuse':
+        case 'child abuse':
+            await ctx.reply(ctx.i18n.t('forward_spam_messages', { type: text }))
+            await stopReporting(ctx, true)
+            break
+        case 'mass adding':
             ctx.session.reportType = text
             ctx.scene.enter(Scenes.ReportEntity)
             break
@@ -50,12 +57,16 @@ reportTypeBuilder.on(':text', async (ctx) => {
 
 const { sceneMiddleware: reportEntityMiddleware, sceneBuilder: reportEntityBuilder } =
     createScene<BotContext>(Scenes.ReportEntity, async (ctx) => await ctx.reply(ctx.i18n.t('report_entity'), { reply_markup: RemoveKeyboard }))
-reportEntityBuilder.command('stop', stopReporting)
+reportEntityBuilder.command('stop', (ctx) => stopReporting(ctx, true))
 reportEntityBuilder.on(':text', async (ctx) => {
-    const text = ctx.msg.text.trim().toLowerCase()
-    if (text.startsWith('@') || text.match(/https?:\/\/t.me/)) {
-        ctx.session.reportEntity = text
-        await ctx.scene.enter(Scenes.ReportContent)
+    const text = ctx.msg.text.trim()
+    if (text.startsWith('@') || text.match(/^https?:\/\/t.me/)) {
+        if (text.match(/^https?:\/\/t\.me\/c\//)) {
+            await ctx.reply(ctx.i18n.t('possible_private_chat'))
+        } else {
+            ctx.session.reportEntity = text
+            await ctx.scene.enter(Scenes.ReportContent)
+        }
     } else {
         await ctx.reply(ctx.i18n.t('invaid_report_entity'))
     }
@@ -63,7 +74,7 @@ reportEntityBuilder.on(':text', async (ctx) => {
 
 const { sceneMiddleware: reportContentMiddleware, sceneBuilder: reportContentBuilder } =
     createScene<BotContext>(Scenes.ReportContent, async (ctx) => await ctx.reply(ctx.i18n.t('report_content')))
-reportContentBuilder.command('stop', stopReporting)
+reportContentBuilder.command('stop', (ctx) => stopReporting(ctx, true))
 reportContentBuilder.on(':text', async (ctx) => {
     const text = ctx.msg.text.trim()
     ctx.session.reportContent = text
@@ -71,7 +82,7 @@ reportContentBuilder.on(':text', async (ctx) => {
     const message = `*New Report*\nType: ${ctx.session.reportType}\nEntity: ${ctx.session.reportEntity}\nDescription: ${ctx.session.reportContent}`
     await bot.api.sendMessage(REPORT_CHAT_ID, message)
     await ctx.reply(ctx.i18n.t('thanks_for_report'))
-    clearSession(ctx)
+    await stopReporting(ctx, false)
 })
 
 bot.use(reportTypeMiddleware)
