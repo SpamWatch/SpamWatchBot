@@ -12,6 +12,11 @@ if (!BOT_TOKEN) {
 
 export const bot = new Bot<BotContext>(BOT_TOKEN);
 
+bot.use(async (ctx, next) => {
+  if (ctx.message.chat.type === "private")
+    await next()
+})
+
 bot.use(session({
   initial(): SessionData {
     return {
@@ -43,3 +48,5 @@ bot.catch((err) => {
     winston.error("Unknown error:", e);
   }
 })
+
+export const botPrivate = bot.filter(ctx => ctx.chat?.type === 'private');

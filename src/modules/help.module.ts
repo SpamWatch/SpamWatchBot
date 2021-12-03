@@ -1,7 +1,7 @@
 import winston from 'winston'
-import { bot } from '../bot'
+import { botPrivate } from '../bot'
 
-bot.command('help', async (ctx) => {
+botPrivate.command('help', async (ctx) => {
     winston.info(`help request`, {
         user: ctx.from,
     })

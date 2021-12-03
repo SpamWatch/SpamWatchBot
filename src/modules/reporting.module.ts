@@ -2,7 +2,7 @@ import winston from 'winston'
 import { ReplyKeyboardRemove } from '@grammyjs/types'
 import { createScene } from 'basic-scene'
 import { Keyboard } from 'grammy'
-import { bot } from '../bot'
+import { bot, botPrivate } from '../bot'
 import { BotContext, REPORT_CHAT_ID } from '../constants'
 
 const RemoveKeyboard: ReplyKeyboardRemove = { remove_keyboard: true }
@@ -85,16 +85,16 @@ reportContentBuilder.on(':text', async (ctx) => {
     await stopReporting(ctx, false)
 })
 
-bot.use(reportTypeMiddleware)
-bot.use(reportEntityMiddleware)
-bot.use(reportContentMiddleware)
+botPrivate.use(reportTypeMiddleware)
+botPrivate.use(reportEntityMiddleware)
+botPrivate.use(reportContentMiddleware)
 
-bot.command('report', async (ctx) => {
+botPrivate.command('report', async (ctx) => {
     winston.info(`start report`, { user: ctx.from })
     await ctx.scene.enter(Scenes.SetReportType)
 })
 
-bot.on('msg:forward_date', async (ctx) => {
+botPrivate.on('msg:forward_date', async (ctx) => {
     if (ctx.chat.type === 'private' && ctx.chat.username) {
         winston.info(`forwarded report`, { user: ctx.from, forwardFrom: ctx.msg.forward_from })
         if (ctx.msg.forward_from) {

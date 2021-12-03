@@ -1,11 +1,11 @@
 import winston from 'winston'
 import i18next from 'i18next'
-import { bot } from '../bot'
+import { botPrivate } from '../bot'
 
 const questionKeys = Object.keys(i18next.store!.data['en']['faq'])
     .filter((k) => !k.match(/^(answer|file)/))
 
-bot.command('faq', async (ctx) => {
+botPrivate.command('faq', async (ctx) => {
     const faq = questionKeys.reduce((acc, key) => {
         const translation = ctx.i18n.t(`faq:${key}`)
         acc += `- *${translation}*\n/faq\\_${key.replaceAll('_', '\\_')}\n\n`
@@ -19,7 +19,7 @@ const answerKeys = Object.keys(i18next.store!.data['en']['faq'])
     .filter((k) => k.startsWith('answer'))
 const commands = answerKeys.map((k) => k.replace('answer_', 'faq_'))
 
-bot.command(commands, async (ctx) => {
+botPrivate.command(commands, async (ctx) => {
     const key = ctx.msg.text.split(' ')[0].replace('/faq_', '')
     winston.info(`faq item request`, {
         item: key,

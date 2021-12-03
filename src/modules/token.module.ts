@@ -1,5 +1,5 @@
 import winston from 'winston'
-import { bot } from '../bot'
+import { botPrivate } from '../bot'
 import { SpamWatch } from '../config/spamwatch'
 import { BotContext } from "../constants";
 
@@ -35,7 +35,7 @@ export const tokenRequest = async (ctx: BotContext) => {
     }
 }
 
-bot.command('token', async (ctx) => {
+botPrivate.command('token', async (ctx) => {
     await tokenRequest(ctx)
 })
 

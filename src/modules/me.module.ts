@@ -1,8 +1,8 @@
 import winston from 'winston'
-import { bot } from '../bot'
+import { botPrivate } from '../bot'
 import { SpamWatch } from '../config/spamwatch'
 
-bot.command('me', async (ctx) => {
+botPrivate.command('me', async (ctx) => {
     const userId = ctx.message?.from?.id
     if (userId) {
         await ctx.replyWithChatAction('typing')

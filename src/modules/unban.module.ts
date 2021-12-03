@@ -1,10 +1,10 @@
 import winston from 'winston'
-import { bot } from '../bot'
+import { bot, botPrivate } from '../bot'
 import { SpamWatch } from '../config/spamwatch'
 import { ADMIN_CHAT_ID, SUPER_ADMIN_IDS } from "../constants";
 import dedent from 'dedent'
 
-bot.command('unban', async (ctx) => {
+botPrivate.command('unban', async (ctx) => {
     const text = ctx.match.trim()
     const user = ctx.msg.from
     if (user) {
@@ -38,7 +38,7 @@ bot.command('unban', async (ctx) => {
     }
 })
 
-bot.command(['deny', 'approve'], async (ctx) => {
+botPrivate.command(['deny', 'approve'], async (ctx) => {
     if (ctx.chat.id === ADMIN_CHAT_ID) {
         if (ctx.msg.from?.id === ctx.me.id) {
             const forwardFrom = ctx.msg.forward_from_chat
