@@ -8,7 +8,7 @@ const questionKeys = Object.keys(i18next.store!.data['en']['faq'])
 botPrivate.command('faq', async (ctx) => {
     const faq = questionKeys.reduce((acc, key) => {
         const translation = ctx.i18n.t(`faq:${key}`)
-        acc += `- *${translation}*\n/faq\\_${key.replaceAll('_', '\\_')}\n\n`
+        acc += `*${translation}*\n/faq\\_${key.replaceAll('_', '\\_')}\n\n`
         return acc
     }, '')
 
@@ -30,7 +30,7 @@ botPrivate.command(commands, async (ctx) => {
         const answer = ctx.i18n.t(`faq:answer_${key}`)
         const file = ctx.i18n.exists(`faq:file_${key}`) ? ctx.i18n.t(`faq:file_${key}`).trim() : undefined
         const message = `*${title}*\n\n${answer}`
-        
+
         if (file) {
             await ctx.replyWithPhoto(file, { caption: message })
         } else {

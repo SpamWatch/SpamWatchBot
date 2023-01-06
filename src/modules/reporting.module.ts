@@ -95,10 +95,11 @@ botPrivate.command('report', async (ctx) => {
 })
 
 botPrivate.on('msg:forward_date', async (ctx) => {
-    if (ctx.chat.type === 'private' && ctx.chat.username) {
+    if (ctx.chat.type === 'private') {
         winston.info(`forwarded report`, { user: ctx.from, forwardFrom: ctx.msg.forward_from })
         if (ctx.msg.forward_from) {
             await ctx.msg.forward(REPORT_CHAT_ID)
+            await ctx.reply(ctx.i18n.t('thanks_for_report'))
         } else {
             await ctx.reply(ctx.i18n.t('cant_forward'))
         }

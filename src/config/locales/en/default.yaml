@@ -8,7 +8,7 @@ start_message: |
 help_message: |
   Thanks for using *SpamWatch Help*!
   Here are the available commands and how to use them:
-  
+
   *Help and Reporting*
   `/faq   ` - Display a list of frequently asked questions.
   `/report` - Report content that can't be forwarded.
@@ -66,5 +66,5 @@ invalid_report_type: I don't know what that means. Please send one of `spam`, `s
 report_entity: Please give a username (starting with `@`), invite link, or message link to the entity you're reporting.
 invaid_report_entity: Invalid format. I need a username (starting with `@`), invite link, or message link. Links should start with `https://t.me`.
 report_content: Please describe your reason for reporting.
-thanks_for_report: Thank's for your report! You can view your report in @SpamWatchReports.
+thanks_for_report: Thanks for your report! You can view your report in @SpamWatchReports.
 reporting_stopped: Your report has been canceled.

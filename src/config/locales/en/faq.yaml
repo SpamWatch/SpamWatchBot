@@ -1,67 +1,49 @@
 how_add: How can I add SpamWatch to my group?
-answer_how_add: >-
-  *SpamWatch* is what's known as a "Rose Fed". Using @MissRoseBot you can connect to the SpamWatch Federation, allowing any _fedbans_ that happen
-  in SpamWatch to also affect your connected group or groups. To connect to SpamWatch:
+answer_how_add: |-
+  *SpamWatch* is what's known as a "Rose Fed". Using @MissRose\_bot you can connect to the SpamWatch Federation, allowing any _fedbans_ that happen in SpamWatch to also affect your connected group or groups.
 
+  To connect to SpamWatch:
 
-  1. Add @MissRoseBot to your group and give it admin permissions.
-
-
+  1. Add @MissRose\_bot to your group and give it admin permissions.
   2. Run the command `/joinfed 1c2221d9-aa27-4baf-b77c-8822b36254d2` to be connected to the SpamWatch Federation.
-
 
   And that's all there is to it. Your group is now connected to SpamWatch.
 
 how_report: How can I report spam to SpamWatch?
-answer_how_report: >-
+answer_how_report: |-
   There are multiple kinds of spam, and therefore also multiple different ways to report it.
-  
 
-  The simplest way is to just *forward* the spam messages here. Any forwarded messages will be forwarded on to our team for analysis. 
+  The simplest way is to just *forward* the spam messages here. Any forwarded messages will be forwarded on to our team for analysis.
 
-
-  Another big problem is groups *spam adding* people. If you get spam added to a group or see it happening in a group you're in, use
-  the command `/spam @groupusername` or `/spam invite_link`. This won't work for private groups without an invite link.
-
+  Another big problem is groups *spam adding* people. If you get spam added to a group or see it happening in a group you're in, use the command `/spam @groupusername` or `/spam invite_link`. This won't work for private groups without an invite link.
 
   If you see a group or user spreading *child abuse* content, use the command `/ca @username` or `/ca invite_link`.
-
 
   If you notice another kind of spam that wasn't mentioned here please let us know in @SpamWatchSupport so we can get it added.
 
 why_banned: Why was I banned?
-answer_why_banned: >-
+answer_why_banned: |-
   There are several possible reasons you may have been banned in *SpamWatch*. Did you:
-
 
   - Send a *spam message* in a group? A spam message can be anything others might find annoying such as
   advertisements, cryptocurrency promotions, telegram group/channel promotions, and much more.
-
-
   - Flood a group with *useless*, *vulgar*, or otherwise *annoying messages*?
-
-
   - *Add people* to a group or channel without their permission?
-
 
   While these aren't the only ways to be banned in SpamWatch, they are the main ones. If you're an admin
   in a group that is mass adding members *you may also be subject to a ban*!
+
 file_why_banned: AgACAgIAAxkBAAEG15phcFZgF8gxkSDbOvqVfjfDlymvpwACmaoxGxle8Uuh1I5kPT92OQEAAwIAA3kAAyEE
-
 can_i_get_unbanned: Can I get unbanned?
-answer_can_i_get_unbanned: >-
-  The short answer is, *probably not*. The auto-ban system, also called _autobahn_, is very efficient and
-  very rarely gets things wrong. That being said, occasionally misunderstandings happen, so here is a list
-  of offenses for which you _might_ be pardoned:
 
-  
+answer_can_i_get_unbanned: |-
+  The short answer is, *probably not*. The auto-ban system, also called _autobahn_, is very efficient and very rarely gets things wrong. That being said, occasionally misunderstandings happen, so here is a list of offenses for which you _might_ be pardoned:
+
   - Being an admin in a group that is mass adding people. This is *only* if you did not participate in the
   mass adding, and you agree to leave the offending group.
-
 
   - General spam, _if_ you can prove that the spam in question was a misunderstanding. For instance, some
   links are blacklisted and will result in an automatic fedban. If you happend to post one of these
   links for some other purpose it _could_ result in an accidental ban.
-
 
   In general however, just know, if you *did* spam you will not be unbanned. SpamWatch bans do not have a time limit.
